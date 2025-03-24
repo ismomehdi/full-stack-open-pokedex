@@ -1,4 +1,4 @@
-import express, { static as s } from 'express'
+const express = require('express')
 const app = express()
 
 // get the port from env variable
@@ -10,4 +10,8 @@ app.use(s('dist'))
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`server started on port ${PORT}`)
+})
+
+app.get('/version', (req, res) => {
+  res.send('1') // change this string to ensure a new version deployed
 })
