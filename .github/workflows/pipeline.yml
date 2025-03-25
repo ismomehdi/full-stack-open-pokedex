@@ -23,12 +23,12 @@ jobs:
       - name: Build
         run: npm run build
       - name: Discord Webhook Notify Failure
-        uses: rjstone/discord-webhook-notify@v1.0.4
+        uses: Ilshidur/action-discord@master
         if: failure()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
         with:
-            severity: error
-            details: Build Failed!
-            webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}      
+          args: 'Build Failed'      
       - name: Test
         run: npm run test
       - name: Install Playwright Browsers
@@ -50,12 +50,12 @@ jobs:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
         # Notify
       - name: Discord Webhook Notify Success
-        uses: rjstone/discord-webhook-notify@v1.0.4
+        uses: Ilshidur/action-discord@master
         if: success()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
         with:
-          severity: info
-          details: Deployment Succeeded!
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          args: 'Deployment Succeeded'
 
   tag_release:
     needs: [simple_deployment_pipeline]
