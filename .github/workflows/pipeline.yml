@@ -22,6 +22,13 @@ jobs:
         run: npm run eslint
       - name: Build
         run: npm run build
+      - name: Discord Webhook Notify Failure
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        if: failure()
+        with:
+            severity: error
+            details: Build Failed!
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}      
       - name: Test
         run: npm run test
       - name: Install Playwright Browsers
@@ -41,6 +48,15 @@ jobs:
         run: flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+        # Notify
+      - name: Discord Webhook Notify Success
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        if: success()
+        with:
+          severity: info
+          details: Deployment Succeeded!
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
+
   tag_release:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
