@@ -18,7 +18,7 @@ const mapResults = ({ results }) =>
   }))
 
 const App = () => {
-
+  console.log('this will break the build') // This will fail eslint
   const match = useMatch('/pokemon/:name')
   const {
     data: pokemonList,
