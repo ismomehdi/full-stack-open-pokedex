@@ -28,7 +28,7 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
         with:
-          args: 'Build Failed'      
+          args: 'Build Failed 😭'      
       - name: Test
         run: npm run test
       - name: Install Playwright Browsers
@@ -55,7 +55,7 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
         with:
-          args: 'Deployment Succeeded'
+          args: 'Deployment Succeeded 🥳'
 
   tag_release:
     needs: [simple_deployment_pipeline]
